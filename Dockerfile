@@ -2,18 +2,31 @@
 FROM python:3.13-alpine
 
 # Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
 # Set the working directory
 WORKDIR /app
 
-# Copy project files into the container
-COPY . .
+# Install system dependencies (gcc & musl-dev are often needed for pip builds)
+RUN apk add --no-cache \
+    gcc \
+    musl-dev \
+    libffi-dev \
+    build-base \
+    python3-dev \
+    openssl-dev \
+    cargo \
+    && pip install --upgrade pip
 
-# Install dependencies
-RUN pip install --upgrade pip \
-    && pip install -r requirements.txt
+# Copy requirements separately to leverage Docker cache
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install -r requirements.txt
+
+# Copy the rest of the project
+COPY . .
 
 # Expose port 5000 for Flask
 EXPOSE 5000
