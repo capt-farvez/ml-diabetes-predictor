@@ -1,4 +1,4 @@
-name: Diabetes Predictor CI
+name: Predictor CI
 
 on:
   push:
