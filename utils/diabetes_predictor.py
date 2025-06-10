@@ -3,6 +3,7 @@ import pandas as pd
 import pickle
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 
 # Load and clean diabetes dataset
 def load_and_prepare_data():
@@ -46,3 +47,18 @@ def predict_diabetes(input_data):
     input_df = pd.DataFrame([input_data], columns=feature_names)
     prediction = classifier.predict(input_df)
     return prediction[0]
+
+def get_model_accuracy():
+    # print("Calculating model accuracy...")
+    df = load_and_prepare_data()
+    X = df.drop(columns='Outcome')
+    y = df['Outcome']
+
+    with open('models/diabetes-prediction-rfc-model.pkl', 'rb') as file:
+        classifier = pickle.load(file)
+
+    y_pred = classifier.predict(X)
+    accuracy = accuracy_score(y, y_pred)   # returns a float value between 0 and 1
+    # Convert accuracy to percentage
+    rounded_accuracy = round(accuracy * 100, 2)
+    return rounded_accuracy
