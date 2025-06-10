@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>About - {{ info.project_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f9fc;
+            color: #2c3e50;
+            padding: 40px;
+            max-width: 800px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+            color: #2980b9;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .info {
+            background-color: #d6eaf8;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.1);
+        }
+        .footer {
+            margin-top: 40px;
+            font-size: 14px;
+            color: #7f8c8d;
+            text-align: center;
+        }
+        a.back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        a.back-btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h1>About {{ info.project_name }}</h1>
+    <div class="info">
+        <p>{{ info.description }}</p>
+        <p><strong>Model Accuracy:</strong> {{ info.accuracy }} %</p>
+        <p><strong>Author:</strong> {{ info.author }}</p>
+        <p><strong>Year:</strong> {{ info.year }}</p>
+    </div>
+
+    <a href="/" class="back-btn">← Back to Prediction</a>
+
+    <div class="footer">
+        &copy; <span id="year"></span> , <a href="https://www.linkedin.com/in/farvez/">Anowar Hossen Farvez. </a> All rights reserved.
+    </div>
+
+    <script>
+        // Set current year dynamically
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
